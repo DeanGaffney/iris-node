@@ -1,0 +1,23 @@
+{
+  "name": "iris_demo",
+  "version": "1.0.0",
+  "description": "demo agent for iris presentation",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "devStart": "nodemon app.js"
+  },
+  "author": "Dean Gaffney",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "systeminformation": "^3.33.12"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.5"
+  }
+}
