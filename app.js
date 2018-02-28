@@ -68,7 +68,7 @@ function sendInfo(){
 
 }
 
-setInterval(sendInfo, 1000);
+setInterval(sendInfo, 5000);
 
 function printInfo(){
     var uptime = si.time().uptime;
