@@ -15,7 +15,25 @@ app.get('/system-info', function (req, res) {
 });
 
 function sendInfo(){
-    var endpoint = 'http://localhost:9000/schema/route/3';
+    var endpoint = '';
+
+    var agentOptions = {
+        method: 'POST',
+        uri: 'http://ec2-52-16-53-220.eu-west-1.compute.amazonaws.com:8080/iris/schema/getAgentUrl',
+        body: {
+            name: 'node_agent'
+        },
+        json: true      // JSON stringifies the body automatically
+    }
+
+    var uriP = request(agentOptions)
+    .then(function(response){
+       endpoint = response.url;
+       console.log(endpoint);
+    })
+    .catch(function(err){
+        console.log(err);
+    });
 
     var uptime = si.time().uptime;
 
@@ -41,7 +59,7 @@ function sendInfo(){
     var p4 = si.osInfo().then(data => osName = data.distro + ' ' + data.release)
                         .catch(error => console.log(error));
 
-    Promise.all([p1, p2, p3, p4]).then(values =>{
+    Promise.all([uriP, p1, p2, p3, p4]).then(values =>{
         var options = {
             method: 'POST',
             uri: endpoint,
