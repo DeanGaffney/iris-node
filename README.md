@@ -36,4 +36,4 @@ The transformation rule is given access to the data pushed to Iris before it is 
 
 * **Dean Gaffney**
 
-See also the list of [contributors](https://github.com/DeanGaffney/iris-selenium/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/DeanGaffney/iris-node/graphs/contributors) who participated in this project.
