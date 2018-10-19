@@ -1,0 +1,7 @@
+{
+    "iris": {
+        "agent": {
+            "url": "<YOUR ENDPOINT>"
+        }
+    }
+}

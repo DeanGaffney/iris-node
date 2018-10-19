@@ -2,9 +2,10 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request-promise');
 const si = require('systeminformation');
+const config = require('./config.json')
 var app = express();
 
-app.use(express.static(__dirname)).listen(3000, function(){
+app.use(express.static(__dirname)).listen(process.env.PORT, function(){
 
 });
 
@@ -19,11 +20,11 @@ function sendInfo(){
 
     var postHeaders = { 'X-Auth-Token' : jwt};
 
-    var endpoint = '';
+    var endpoint = config.iris.agent.url;
 
     var agentOptions = {
         method: 'POST',
-        uri: 'http://ec2-52-16-53-220.eu-west-1.compute.amazonaws.com:8080/iris/schema/getAgentUrl',
+        uri: endpoint,
         headers: postHeaders,
         body: {
             name: 'node_agent'
@@ -64,7 +65,12 @@ function sendInfo(){
     var p4 = si.osInfo().then(data => osName = data.distro + ' ' + data.release)
                         .catch(error => console.log(error));
 
-    Promise.all([uriP, p1, p2, p3, p4]).then(values =>{
+    var ip
+    var p5 = si.networkInterfaces().then(data => ip = data[0].ip4)
+                                    .catch(error => console.log(error)); 
+
+    Promise.all([uriP, p1, p2, p3, p4, p5]).then(values =>{
+        console.log(ip);
         var options = {
             method: 'POST',
             uri: endpoint,
@@ -76,7 +82,8 @@ function sendInfo(){
                 memTotal: 3,        //long
                 memFree: memFree,          //long
                 memUsed: memUsed,          //long
-                cpuCurrentLoad: cpuCurrentLoad          //double
+                cpuCurrentLoad: cpuCurrentLoad,          //double,
+                ip: ip
             },
             json: true      // JSON stringifies the body automatically
         }
