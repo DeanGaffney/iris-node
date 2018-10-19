@@ -22,24 +22,6 @@ function sendInfo(){
 
     var endpoint = config.iris.agent.url;
 
-    var agentOptions = {
-        method: 'POST',
-        uri: endpoint,
-        headers: postHeaders,
-        body: {
-            name: 'node_agent'
-        },
-        json: true      // JSON stringifies the body automatically
-    }
-
-    var uriP = request(agentOptions)
-    .then(function(response){
-       endpoint = response.url;
-       console.log(endpoint);
-    })
-    .catch(function(err){
-        console.log(err);
-    });
 
     var uptime = si.time().uptime;
 
@@ -69,7 +51,7 @@ function sendInfo(){
     var p5 = si.networkInterfaces().then(data => ip = data[0].ip4)
                                     .catch(error => console.log(error)); 
 
-    Promise.all([uriP, p1, p2, p3, p4, p5]).then(values =>{
+    Promise.all([p1, p2, p3, p4, p5]).then(values =>{
         console.log(ip);
         var options = {
             method: 'POST',
