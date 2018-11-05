@@ -61,7 +61,7 @@ function sendInfo(){
                 osName: osName,            //String
                 uptime: uptime,            //double
                 cpuSpeedGHZ: cpuSpeedGHZ,  //float
-                memTotal: 3,        //long
+                memTotal: memTotal
                 memFree: memFree,          //long
                 memUsed: memUsed,          //long
                 cpuCurrentLoad: cpuCurrentLoad,          //double,
